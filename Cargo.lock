@@ -3463,6 +3463,7 @@ dependencies = [
  "ndarray 0.16.1",
  "nshare",
  "ort",
+ "rayon",
  "reqwest",
  "thiserror 1.0.69",
 ]
