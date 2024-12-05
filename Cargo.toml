@@ -1,0 +1,17 @@
+[package]
+name = "face-rs"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+image = {version="0.25", features=["jpeg", "png"]}
+ndarray = "0.16"
+rust-faces = { version = "1.0.0", features = ["viz"] }
+ort = { version = "2.0.0-rc.9", features = ["load-dynamic", "cuda"] }
+nokhwa = { version = "0.10.7", features = ["input-native", "output-wgpu"] }
+nannou = "0.19.0"
+flume = "0.11.1"
+nannou_osc = "0.19.0"
+
+[patch.crates-io]
+rust-faces = { path = "crates/rust-faces" }
