@@ -4,7 +4,7 @@ use nokhwa::{
     utils::{CameraIndex, RequestedFormat, RequestedFormatType},
     Camera,
 };
-use rust_faces::{BlazeFaceParams, FaceDetection, FaceDetectorBuilder, InferParams, Provider}; 
+use rust_faces::{BlazeFaceParams, FaceDetection, FaceDetectorBuilder, InferParams, Provider};
 
 pub fn main() {
     let face_detector =
@@ -12,8 +12,6 @@ pub fn main() {
             .download()
             .infer_params(InferParams {
                 provider: Provider::OrtCuda(0),
-                inter_threads: Some(1),
-                intra_threads: Some(1),
                 ..Default::default()
             })
             .build()
@@ -21,7 +19,7 @@ pub fn main() {
 
     let index = CameraIndex::Index(0);
     let requested =
-        RequestedFormat::new::<RgbAFormat>(RequestedFormatType::AbsoluteHighestResolution);
+        RequestedFormat::new::<RgbAFormat>(RequestedFormatType::AbsoluteHighestFrameRate);
     let mut camera = Camera::new(index, requested).expect("Fail to open the camera.");
 
     let mut source = camera
@@ -35,6 +33,8 @@ pub fn main() {
         |(y, x, c)| source[(x as u32, y as u32)][c],
     );
 
+    let mut start = std::time::Instant::now();
+    let mut frames = 0;
     loop {
         source = camera
             .frame()
@@ -49,5 +49,13 @@ pub fn main() {
         let _ = face_detector
             .detect(image_array.view().into_dyn())
             .expect("Fail to detect faces.");
+
+        frames += 1;
+
+        if start.elapsed().as_secs() >= 1 {
+            println!("FPS: {}", frames);
+            frames = 0;
+            start = std::time::Instant::now();
+        }
     }
 }
