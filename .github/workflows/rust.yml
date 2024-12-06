@@ -16,7 +16,7 @@ jobs:
         steps:
             - uses: actions/checkout@v4
             - name: Get Rust Faces
-              run: cd crates && git clone https://github.com/cattodotp/rust-faces.git
+              run: cd crates && git clone https://github.com/cattodotpy/rust-faces
             - name: Build
               run: cargo build --release --verbose
             - name: Run tests
