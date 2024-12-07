@@ -779,6 +779,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "fast_image_resize"
+version = "5.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a66a61fbfc84ef99a839499cf9e5a7c2951d2da874ea00f29ee938bc50d1b396"
+dependencies = [
+ "bytemuck",
+ "cfg-if 1.0.0",
+ "document-features",
+ "image 0.25.5",
+ "num-traits",
+ "rayon",
+ "thiserror 1.0.69",
+]
+
+[[package]]
 name = "fastrand"
 version = "2.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3164,6 +3179,8 @@ dependencies = [
 name = "rust-faces"
 version = "1.0.0"
 dependencies = [
+ "bytemuck",
+ "fast_image_resize",
  "home",
  "image 0.25.5",
  "imageproc",
@@ -3172,7 +3189,6 @@ dependencies = [
  "ndarray 0.16.1",
  "nshare",
  "ort",
- "rayon",
  "reqwest",
  "thiserror 1.0.69",
 ]
